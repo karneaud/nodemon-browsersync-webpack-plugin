@@ -5,7 +5,7 @@ const browserSync = require('browser-sync');
 const nodemon = require('nodemon');
 const chalk = require('chalk');
 
-module.exports = class {
+module.exports = class NodeBrowserSyncWebpackPlugin {
     constructor(nodemonOptions, browserSyncOptions, pluginOptions) {
         let defaultPluginOptions = {
             reload: true,
@@ -29,7 +29,7 @@ module.exports = class {
     apply(compiler) {
 
         // start nodemon on compile lifecycle
-        compiler.plugin('compile', () => {
+        compiler.hooks.compile.tap('NodeBrowserSyncWebpackPlugin', () => {
             if (this.isWebpackWatching) {
                 nodemon(this.nodemonOptions).on('start', () => {
                     console.log(`[${chalk.blue('Nodemon')}] ${chalk.cyan('Restarting...')}`);
@@ -40,18 +40,18 @@ module.exports = class {
             }
         });
 
-        compiler.plugin('watch-run', (watching, callback) => {
+        compiler.hooks.watchRun.tapAsync('NodeBrowserSyncWebpackPlugin', (watching, callback) => {
             this.isWebpackWatching = true;
             callback(null, null);
         });
 
-        compiler.plugin('compilation', () => {
+        compiler.hooks.compilation.tap('NodeBrowserSyncWebpackPlugin', () => {
             if (this.isBrowserSyncRunning) {
                 this.browserSync.notify('Rebuilding...');
             }
         });
 
-        compiler.plugin('done', () => {
+        compiler.hooks.done.tap('NodeBrowserSyncWebpackPlugin', () => {
             if (this.isWebpackWatching) {
                 if (this.isBrowserSyncRunning) {
                     if (this.options.reload) {
