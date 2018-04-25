@@ -41,7 +41,7 @@ module.exports = class NodeBrowserSyncWebpackPlugin {
         });
 
         compiler.hooks.watchRun.tapAsync('NodeBrowserSyncWebpackPlugin', (watching, callback) => {
-            this.isWebpackWatching = true;
+        	this.isWebpackWatching = true;
             callback(null, null);
         });
 
@@ -52,7 +52,8 @@ module.exports = class NodeBrowserSyncWebpackPlugin {
         });
 
         compiler.hooks.done.tap('NodeBrowserSyncWebpackPlugin', () => {
-            if (this.isWebpackWatching) {
+        	
+        	if (this.isWebpackWatching) {
                 if (this.isBrowserSyncRunning) {
                     if (this.options.reload) {
                         this.browserSync.reload();
