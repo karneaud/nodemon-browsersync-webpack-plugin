@@ -1,6 +1,6 @@
 {
   "name": "nodemon-browsersync-webpack-plugin",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "A webpack plugin that starts and reloads Nodemon and Browsersync.",
   "main": "index.js",
   "scripts": {
