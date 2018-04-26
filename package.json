@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/gurunate/nodemon-browsersync-webpack-plugin#readme",
   "dependencies": {
-    "browsersync": "*",
+    "browser-sync": "*",
     "chalk": "^2.4.0",
     "lodash": "*",
     "nodemon": "*"
